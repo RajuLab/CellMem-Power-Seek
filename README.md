@@ -1,5 +1,5 @@
 # CellMem-Power-Seek
-Codes necessary to the 'Identifying memory gene expression from single sample scRNA-seq data using power law signatures' are uploaded here. Basic description of the codes:
+Codes necessary to the '[Identifying memory gene expression from single sample scRNA-seq data using power law signatures](https://www.biorxiv.org/content/10.1101/2025.01.15.633183v1.full)' are uploaded here. Basic description of the codes:
 
 1. SimulationDataMat.ipynb: Simulation of lineage dynamics. Written in Python.
 2. PowerSeekSimulation: Applying Power-Seek algorithm to simulated single snapshot scRNA data. Written in Python.
