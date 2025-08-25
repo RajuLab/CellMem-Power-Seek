@@ -1,0 +1,99 @@
+---
+title: "R Notebook"
+output: html_notebook
+editor_options: 
+  chunk_output_type: inline
+---
+
+### 1. Count matrix data:
+
+The source of data : [Guillaume Harmange et. al., 2022](https://www.biorxiv.org/content/10.1101/2022.06.16.496161v1). we use a part of analysis script [10X1_r1_r2_Analysis_unorm_sctrans.Rmd](https://drive.google.com/drive/folders/1RBeMRKvuMrUeUgJdsobIYM7FggPU5zUF) from [Guillaume Harmange et. al., 2022](https://www.biorxiv.org/content/10.1101/2022.06.16.496161v1). The source of count matrix data [here](https://drive.google.com/drive/folders/1SiaeAEXLQIzINAtke46IuNOCl8Epa8v3).
+
+```{r import library}
+library(Seurat)
+library(matrixStats)
+library(readxl)
+```
+
+Importing 10x dataset.
+
+```{r setting up Path}
+PATH <- paste0(path.expand("~"), "/Dropbox/suvranil/cellmem/code/R")
+mat_PATH <- paste0(PATH, "/filtered_feature_bc_matrix_MemSeqData")
+```
+
+```{r import data}
+#import data
+tx.data <- Read10X(data.dir = mat_PATH)
+txo <- CreateSeuratObject(counts = tx.data$`Gene Expression`, min.cells = 0)
+# add lineage data to the seurat object
+txo[['lineage']] <- CreateAssayObject(counts = tx.data$Custom, min.cells = 1)
+```
+
+```{r}
+#including gene names
+txo@assays$RNA@layers$counts@Dimnames <- list(rownames(tx.data$`Gene Expression`), colnames(tx.data$`Gene Expression`))
+```
+
+### 2. Visualization of QC metrics
+
+Check amount of mitochondrial and ribosomal gene.
+
+```{r Mt & Rb genes}
+txo[["percent.mt"]] <- PercentageFeatureSet(object = txo, pattern = "^MT-")
+txo[["percent.rb"]] <- PercentageFeatureSet(object = txo, pattern = "^RPS")
+```
+
+nFeature_RNA denotes distribution of number of unique features in each cell. nCount_RNA denotes the number of total raw UMI count in each cell.
+
+percent.mt and percent.rb denote percentage of mitochondrial and ribosomal raw UMI in each cell.
+
+```{r Visualization}
+#Visualize QC metrics as a violin plot
+VlnPlot(object = txo, layer = 'counts', features = c("nFeature_RNA", "nCount_RNA", "percent.mt",  "percent.rb"), ncol = 4)
+```
+
+```{r Quality Control}
+# Quality Control
+#subset based on filter parameters
+onc=txo@assays$lineage@counts@Dim[2]
+txo <- subset(x = txo, subset = nFeature_RNA > 4000 & nFeature_RNA < 10000 & percent.mt < 30)
+```
+
+```{r}
+#including gene expression names
+txo@assays$RNA@layers$counts@Dimnames <- list(rownames(tx.data$`Gene Expression`), rownames(txo@assays$RNA@cells@.Data))
+```
+
+```{r Separating replicates}
+# assing wells number to each sample
+txo$well<- as.numeric(sapply(strsplit(sapply(txo@assays$RNA@layers$counts@Dimnames[2], as.character),"-"), `[`, 2))
+#based on well number assign replicate
+txo$rep <- txo$well
+txo$rep[txo$rep <= 4] <- "r1"
+txo$rep[txo$rep != "r1"] <- "r2"
+
+# split the dataset into a list of two seurat objects
+txo.list <- SplitObject(object = txo, split.by = "rep")
+```
+
+Now we are using only one batch (either batch 1 or batch 2).
+
+```{r Choosing replicate}
+#Use replicate 1 or 2
+#use r1 or r2
+txo.list$r1@assays$RNA@layers$counts@Dimnames <- list(rownames(tx.data$`Gene Expression`), rownames(txo.list$r1@assays$RNA@cells@.Data))
+```
+
+### 4. Raw UMI count matrix
+
+```{r Count DataFrame}
+#total raw UMI count matrix
+cdf <- txo.list$r1$RNA@layers$counts
+dim(cdf)
+```
+
+```{r Storing data}
+cdf_mat <- as.matrix(cdf)
+# write.csv(cdf_mat, 'full_count_mat_batch_1.csv')
+```

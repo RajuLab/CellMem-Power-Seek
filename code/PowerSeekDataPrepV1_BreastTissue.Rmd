@@ -1,0 +1,60 @@
+---
+title: "R Notebook"
+output: html_notebook
+---
+
+
+
+The source of data on human breast cancer tissue: [A. Janesick et al., 2023](https://www.nature.com/articles/s41467-023-43458-x).The count matrix can be found [here](https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSM7782697).
+
+```{r import library}
+library(Seurat)
+```
+
+```{r settng up path}
+# Define the file path
+file_path <- "GSM7782697_3p_count_filtered_feature_bc_matrix.h5"
+```
+
+```{r read and create seurat object}
+# Load the data using Read10X_h5
+tx.data <- Read10X_h5(file_path)
+# Create a Seurat object
+txo <- CreateSeuratObject(counts = tx.data)
+txo@assays$RNA@layers$counts@Dimnames <- list(tx.data@Dimnames[[1]], tx.data@Dimnames[[2]])
+```
+
+
+```{r Mtochondrial and ribosomal RNA}
+txo[["percent.mt"]] <- PercentageFeatureSet(object = txo, pattern = "^MT-")
+txo[["percent.rb"]] <- PercentageFeatureSet(object = txo, pattern = "^RPS")
+```
+
+```{r}
+VlnPlot(object = txo, layer = 'counts', features = c("nFeature_RNA", "nCount_RNA", "percent.mt",  "percent.rb"), ncol = 4)
+```
+
+```{r}
+# Quality Control
+#subset
+txo <- subset(x = txo, subset = nFeature_RNA > 1000 & nFeature_RNA < 10000 & percent.mt < 50)
+#percent of cells kept after this filter
+
+```
+
+```{r}
+VlnPlot(object = txo, layer = 'counts', features = c("nFeature_RNA", "nCount_RNA", "percent.mt",  "percent.rb"), ncol = 4)
+```
+
+```{r}
+txo@assays$RNA@layers$counts@Dimnames <-   list(rownames(txo@assays$RNA@features@.Data), rownames(txo@assays$RNA@cells@.Data))
+```
+
+
+```{r}
+cdf <- txo$RNA@layers$counts
+dim(cdf)
+cdf_mat <- as.matrix(cdf)
+#write.csv(cdf_mat, 'full_count_mat_breast.csv')
+```
+
