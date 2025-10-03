@@ -15,7 +15,7 @@ library(matrixStats)
 library(readxl)
 ```
 
-Importing 10x dataset.
+Importing 10x scRNA-seq count matrix dataset.
 
 ```{r setting up Path}
 PATH <- paste0(path.expand("~"), "/Dropbox/suvranil/cellmem/code/R")
@@ -66,6 +66,7 @@ txo@assays$RNA@layers$counts@Dimnames <- list(rownames(tx.data$`Gene Expression`
 ```
 
 ```{r Separating replicates}
+#This step is very specific to the used data here. It's not related to general preprocessing steps.
 # assing wells number to each sample
 txo$well<- as.numeric(sapply(strsplit(sapply(txo@assays$RNA@layers$counts@Dimnames[2], as.character),"-"), `[`, 2))
 #based on well number assign replicate
