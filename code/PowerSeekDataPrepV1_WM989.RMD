@@ -11,8 +11,6 @@ The source of data : [Guillaume Harmange et. al., 2022](https://www.biorxiv.org/
 
 ```{r import library}
 library(Seurat)
-library(matrixStats)
-library(readxl)
 ```
 
 Importing 10x scRNA-seq count matrix dataset.
