@@ -20,7 +20,7 @@ Here we illustrate how we can process scRNA-seq count matrix data (obtained from
 ### Libraries and software needed
 R library: Seurat v5
 
-Python library: Numpy (version 2.3), pandas (2.3), scipy (1.16), matplotlib (3.10), Python os module (Python's standard built-in module)
+Python library: Numpy (version 2.2), pandas (2.3), scipy (1.15), matplotlib (3.10), Python os module (Python's standard built-in module). Details can be found in the requirements.txt.
 
 Software: To run.RMD notebook, RStudio Desktop, and for .ipynb notebook, VS Code have been used.
 
