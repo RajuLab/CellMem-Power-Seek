@@ -20,7 +20,7 @@ Here we illustrate how we can process scRNA-seq count matrix data (obtained from
 ### Libraries and software needed
 R library: Seurat v5
 
-Python library: Numpy (version 2.2), pandas (2.3), scipy (1.15), matplotlib (3.10), Python os module (Python's standard built-in module). Details can be found in the requirements.txt.
+Python library: Numpy (version 2.2), pandas (2.3), scipy (1.15), matplotlib (3.10), Python os module (Python's standard built-in module). Details are in the [requirements.txt](https://github.com/RajuLab/CellMem-Power-Seek/blob/main/requirements.txt).
 
 Software: To run.RMD notebook, RStudio Desktop, and for .ipynb notebook, VS Code have been used.
 
