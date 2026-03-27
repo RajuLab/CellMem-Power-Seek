@@ -31,11 +31,11 @@ Installation: A guide to install R and RStudio can be found [here](https://rstud
 ### Step 01 - Initial preprocessing (R-based)
 
 In the notebook '[PowerSeekDataPrepV1.RMD](https://github.com/RajuLab/CellMem-Power-Seek/blob/main/code/PowerSeekDataPrepV1.RMD)', we use data from the WM989 melanoma cell line from Harmange et al., Nat Comm 2023. For the 
-convenience of readers, the dataset is provided in this GitHub repo as '[filtered_feature_bc_matrix_WM983.zip](https://github.com/RajuLab/CellMem-Power-Seek/blob/main/filtered_feature_bc_matrix_WM983.zip)'. Please extract 
+convenience of readers, the dataset is provided in this GitHub repo as '[filtered_feature_bc_matrix_WM983.zip](https://github.com/RajuLab/CellMem-Power-Seek/blob/main/filtered_feature_bc_matrix_WM983.zip)'. Please extract. 
 
-Here, using Seurat v5, we perform some basic filtering based on the number of mitochondrial and ribosomal genes, the number of unique genes (features) in each cell, and the total number of raw UMI counts in each cell. 
+Here, using Seurat v5, we perform basic filtering based on the number of mitochondrial and ribosomal genes, the number of unique genes (features) per cell, and the total number of raw UMI counts per cell. 
 
-This step produces a cell-by-gene (features) dataframe (csv file) for downstream processing.
+This step produces a cell-by-gene (features) dataframe (CSV file) for downstream processing.
 
 
 
