@@ -49,7 +49,7 @@ Here, we remove genes which have been expressed in cells less than a threshold v
 
 ### Step 03 - Power-Seek algorithm (Python-based)
 
-In the notebook '[PowerSeekAlgorithmOnData.ipynb](https://github.com/RajuLab/CellMem-Power-Seek/blob/main/code/PowerSeekAlgorithmOnData.ipynb)', we take the output of Step 02 as input. For this particular example, we have used the top 3000 highly variable genes from the previous step (provided in this GitHub repo as ' HighVariable3000CountMatrix_batch_1.csv').
+In the notebook '[PowerSeekAlgorithmOnData.ipynb](https://github.com/RajuLab/CellMem-Power-Seek/blob/main/code/PowerSeekAlgorithmOnData.ipynb)', we take the output of Step 02 as input. For this particular example, we have used the top 3000 highly variable genes from the previous step (provided in this GitHub repo as ' [HighVariable3000CountMatrix_batch_1.csv](https://github.com/RajuLab/CellMem-Power-Seek/blob/main/HighVariable3000CountMatrix_batch_1.zip)').
 
 Importantly, in our example, the output of the previous step is in gene-by-cell data matrix form. We convert it to a cell-by-gene data matrix, where all gene expressions are centralized around their mean and normalized with the standard deviation across cells. Then we calculate the eigenspectra of the cell covariance matrix, and plot the log(eigenvalues) versus log(rank of eigenvalue). 
 
