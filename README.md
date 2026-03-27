@@ -41,7 +41,7 @@ This step produces a cell-by-gene (features) dataframe (CSV file) for downstream
 
 ### Step 02 - Preprocessing (Python-based)
 
-In the notebook '[PowerSeekDataPrepV2.ipynb](https://github.com/RajuLab/CellMem-Power-Seek/blob/main/code/PowerSeekDataPrepV2.ipynb)', we use processed data from step 01 in the previous step (provided in this GitHub repo as 'full_count_mat_batch_1.csv').
+In the notebook '[PowerSeekDataPrepV2.ipynb](https://github.com/RajuLab/CellMem-Power-Seek/blob/main/code/PowerSeekDataPrepV2.ipynb)', we use processed data from step 01 in the previous step (provided in this GitHub repo as '[full_count_mat_batch_1.csv](https://github.com/RajuLab/CellMem-Power-Seek/blob/main/full_count_mat_batch_1.zip)').
 
 Here, we remove genes which have been expressed in cells less than a threshold value (sparsity-based filtering), normalize the expression of individual genes based on the total number of raw counts in each cell (library size normalization). Note that this step should *not* involve a log transform, since this transform can destroy lineage correlations (none of the following steps require assumptions of homoskedasticity or normality of the expression distributions). We also systematically remove genes that show very high expression in a very small number of cells. Then, we select the highly variable genes by comparing the coefficient of variation of each gene. 
 
