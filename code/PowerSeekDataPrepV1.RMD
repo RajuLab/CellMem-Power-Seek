@@ -17,7 +17,7 @@ Importing 10x scRNA-seq count matrix dataset. Please set the path according to y
 
 ```{r setting up Path}
 PATH <- paste0(path.expand("~"), "/Dropbox/suvranil/cellmem/code/R")
-mat_PATH <- paste0(PATH, "/filtered_feature_bc_matrix_WM983")
+mat_PATH <- paste0(PATH, "/filtered_feature_bc_matrix_MemSeqData")
 ```
 
 ```{r import data}
