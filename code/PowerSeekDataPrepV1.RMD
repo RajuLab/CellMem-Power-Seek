@@ -64,8 +64,8 @@ txo@assays$RNA@layers$counts@Dimnames <- list(rownames(tx.data$`Gene Expression`
 ```
 
 ```{r Separating replicates}
-#This step is very specific to the used data here. It's not related to general preprocessing steps.
-# assing wells number to each sample
+#This step is very specific to the data used here. It's not related to general preprocessing steps. 'r1' and 'r2' represent different batches here.
+# assigning wells number to each sample
 txo$well<- as.numeric(sapply(strsplit(sapply(txo@assays$RNA@layers$counts@Dimnames[2], as.character),"-"), `[`, 2))
 #based on well number assign replicate
 txo$rep <- txo$well
