@@ -16,6 +16,7 @@ library(Seurat)
 Importing 10x scRNA-seq count matrix dataset. Please set the path according to your file location. 
 
 ```{r setting up Path}
+# Please set up the path according to your scRNA raw count data path.
 PATH <- paste0(path.expand("~"), "/Dropbox/suvranil/cellmem/code/R")
 mat_PATH <- paste0(PATH, "/filtered_feature_bc_matrix_MemSeqData")
 ```
