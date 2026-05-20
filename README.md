@@ -51,15 +51,15 @@ Here, we remove genes which have been expressed in cells less than a threshold v
 
 In the notebook '[PowerSeekAlgorithmOnData.ipynb](https://github.com/RajuLab/CellMem-Power-Seek/blob/main/code/PowerSeekAlgorithmOnData.ipynb)', we take the output of Step 02 as input. For this particular example, we have used the top 3000 highly variable genes from the previous step (provided in this GitHub repo as ' [HighVariable3000CountMatrix_batch_1.csv](https://github.com/RajuLab/CellMem-Power-Seek/blob/main/HighVariable3000CountMatrix_batch_1.zip)').
 
-Importantly, in our example, the output of the previous step is in gene-by-cell data matrix form. We convert it to a cell-by-gene data matrix, where all gene expressions are centralized around their mean and normalized with the standard deviation across cells. Then we calculate the eigenspectra of the cell covariance matrix, and plot the log(eigenvalues) versus log(rank of eigenvalue). 
+Importantly, in our example, the output of the previous step is in a gene-by-cell data matrix. We convert it to a cell-by-gene data matrix, where all gene expressions are centralized around their means and normalized by the standard deviations across cells. Then we calculate the eigenspectra of the cell covariance matrix, and plot the log(eigenvalues) versus log(rank of eigenvalue). 
 
-Thereafter, we determine the number of top eigenvalues (threshold) that follow a power-law by fitting a straight line to the log(eigenvalues) versus log(rank of eigenvalue) plot and checking the value of goodness of fit, R^2. As the threshold increases, the goodness of fit goes up initially within the power-law regime and then decreases. However, beyond a certain point after the power-law regime ends, goodness of fit increases again because of the increased number of eigenvalues in the noisy region. Therefore, we choose the number of eigenvales around the first peak as the **threshold** (n) here. (In our experience, some fluctuation in threshold value does not affect memory gene detection much.) 
+Thereafter, we determine the number of top eigenvalues (threshold) that follow a power-law by fitting a straight line to the log(eigenvalues) versus log(rank of eigenvalue) plot and checking the value of goodness of fit, R^2. As the threshold increases, the goodness of fit initially increases within the power-law regime and then decreases. However, beyond a certain point after the power-law regime ends, goodness of fit increases again because of the increased number of eigenvalues in the noisy region. Therefore, we choose the number of eigenvales around the first peak as the **threshold** (n) here. (In our experience, some fluctuation in threshold value does not affect memory gene detection much.) 
 
-Thereafter, we use this threshold (n) to implement the Power-Seek algorithm. This step generates a metric $\delta$ for each gene. For $\delta > 0$, a larger $\delta$ corresponds to a longer memory timescale and therefore, it allows identification of top rank memory genes.
+Thereafter, we use this threshold (n) to implement the Power-Seek algorithm. This step generates a metric $\delta$ for each gene. For $\delta > 0$, a larger $\delta$ corresponds to a longer memory timescale, and therefore, it allows identification of top rank memory genes.
  
 ## Brief description of other coding files
 
-**PowerSeekDataPrepV1_BreastTissue.Rmd**: Similar as PowerSeekDataPrepV1_WM989.RMD file where we processed breast cancer tissue data from A. Janesick et al., 2023. 
+**PowerSeekDataPrepV1_BreastTissue.Rmd**: Similar to PowerSeekDataPrepV1_WM989.RMD file where we processed breast cancer tissue data from A. Janesick et al., 2023. 
 
 **SimulationDatamat.ipynb**: Generates a cell-by-gene count matrix with lineage correlation.
 
