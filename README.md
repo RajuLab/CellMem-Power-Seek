@@ -31,7 +31,7 @@ Installation: A guide to install R and RStudio can be found [here](https://rstud
 ### Step 01 - Initial preprocessing (R-based)
 
 In the notebook '[PowerSeekDataPrepV1.RMD](https://github.com/RajuLab/CellMem-Power-Seek/blob/main/code/PowerSeekDataPrepV1.RMD)', we use data from the WM989 melanoma cell line from Harmange et al., Nat Comm 2023. For the 
-convenience of readers, the dataset is provided in the folder '[filtered_feature_bc_matrix_MemSeqData](https://www.dropbox.com/scl/fo/7j78zvysdrp2nhfgn94lz/AHHtWTzIqUcP7u_Q4r_2jOs?rlkey=m6mvd6jplj62rsfgy0af0qa91&st=l8555qqi&dl=0)'. (If you download barcodes.tsv.gz, features.tsv.gz, matrix.mtx.gz separately, please keep them together in a folder named 'filtered_feature_bc_matrix_MemSeqData'.)
+convenience of readers, the dataset is provided in the folder '[filtered_feature_bc_matrix_MemSeqData](https://www.dropbox.com/scl/fo/7j78zvysdrp2nhfgn94lz/AHHtWTzIqUcP7u_Q4r_2jOs?rlkey=m6mvd6jplj62rsfgy0af0qa91&st=l8555qqi&dl=0)'. If you download barcodes.tsv.gz, features.tsv.gz, matrix.mtx.gz separately, please keep them together in a folder named 'filtered_feature_bc_matrix_MemSeqData'.
  
 Here, using Seurat v5, we perform basic filtering based on the number of mitochondrial and ribosomal genes, the number of unique genes (features) per cell, and the total number of raw UMI counts per cell. 
 
